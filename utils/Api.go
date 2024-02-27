@@ -44,3 +44,10 @@ func IsValidHTTPMethod(method string, acceptedMethod string, w http.ResponseWrit
 }
 
 var acceptedMethods = []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete}
+
+func CheckIfPath(w http.ResponseWriter, r *http.Request, path string) {
+	if r.URL.Path != path {
+		http.NotFound(w, r)
+		return
+	}
+}

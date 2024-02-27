@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Go Baby</title>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>Go Baby !</h1>
+    <div id="clock" hx-get="/clock" hx-trigger="load, every 1s"></div>
+    <button id="logButton">Log</button>
+    <button id="restartButton">Restart Cycle</button>
+  </body>
+</html>
