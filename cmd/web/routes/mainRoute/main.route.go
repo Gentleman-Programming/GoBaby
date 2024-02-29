@@ -1,9 +1,8 @@
 package mainRoute
 
 import (
-	"GoBaby/routes"
-	"GoBaby/utils"
-	"html/template"
+	"GoBaby/cmd/web/routes"
+	"GoBaby/internal/utils"
 	"net/http"
 )
 
@@ -13,8 +12,12 @@ func mainView(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, mainUrl)
 
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		tmpl := template.Must(template.ParseFiles("views/index.html"))
-		tmpl.Execute(w, nil)
+		files := []string{
+			"ui/html/base.html",
+			"ui/html/pages/main/main.tmpl.html",
+		}
+
+		utils.ParseTemplateFiles(w, files...)
 	}
 }
 

@@ -1,3 +1,4 @@
+{{define "base"}}
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,9 +12,7 @@
     ></script>
   </head>
   <body>
-    <h1>Go Baby !</h1>
-    <div id="clock" hx-get="/clock" hx-trigger="load, every 1s"></div>
-    <button id="logButton">Log</button>
-    <button id="restartButton">Restart Cycle</button>
+    {{template "main" .}}
   </body>
 </html>
+{{end}}

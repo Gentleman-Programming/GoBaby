@@ -1,11 +1,9 @@
 package mainRoute
 
 import (
-	"GoBaby/routes"
-	"GoBaby/routes/mainRoute/mainUtils"
-	"GoBaby/utils"
-	"fmt"
-	"html/template"
+	"GoBaby/cmd/web/routes"
+	"GoBaby/cmd/web/routes/mainRoute/mainUtils"
+	"GoBaby/internal/utils"
 	"net/http"
 )
 
@@ -21,9 +19,11 @@ func clockFragment(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, url)
 
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		tmpl := template.Must(template.ParseFiles("views/main/clock.html"))
-		fmt.Println(clock)
-		tmpl.Execute(w, clock)
+		files := []string{
+			"ui/html/pages/main/clock.tmpl.html",
+		}
+
+		utils.ParseTemplateFiles(w, files...)
 	}
 }
 

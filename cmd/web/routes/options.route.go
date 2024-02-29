@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"GoBaby/utils"
+	"GoBaby/internal/utils"
 	"net/http"
 )
 
