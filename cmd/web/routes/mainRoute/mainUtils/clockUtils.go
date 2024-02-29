@@ -6,6 +6,7 @@ import (
 )
 
 type Clock struct {
+	Stop      chan struct{}
 	CountDown string
 }
 
@@ -25,8 +26,9 @@ func FormatDuration(seconds int) string {
 var ticker = time.NewTicker(1 * time.Second)
 
 func StartCountdown(clock *Clock, duration int) {
-	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
+
+	clock.Stop = make(chan struct{})
 
 	for range ticker.C {
 		clock.CountDown = FormatDuration(currentDuration)
@@ -37,4 +39,9 @@ func StartCountdown(clock *Clock, duration int) {
 			currentDuration = duration // Restart countdown
 		}
 	}
+}
+
+func StopCountdown(clock *Clock) {
+	time.Sleep(1 * time.Second)
+	close(clock.Stop)
 }

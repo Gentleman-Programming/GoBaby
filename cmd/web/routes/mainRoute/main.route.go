@@ -17,7 +17,8 @@ func mainView(w http.ResponseWriter, r *http.Request) {
 			"ui/html/pages/main/main.tmpl.html",
 		}
 
-		utils.ParseTemplateFiles(w, files...)
+		context := struct{}{}
+		utils.ParseTemplateFiles(w, "base", context, files...)
 	}
 }
 
