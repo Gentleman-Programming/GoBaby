@@ -12,6 +12,7 @@ func main() {
 	routes.LogRender()
 	mainRoute.MainRender()
 	mainRoute.ClockRender()
+
 	mux := routes.GetMuxInstance()
 	fileServer := routes.GetFileServerInstance()
 

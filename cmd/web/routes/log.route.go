@@ -1,20 +1,10 @@
 package routes
 
 import (
-	"GoBaby/internal/utils"
-	"net/http"
+	logDomain "GoBaby/cmd/web/domain/log"
+	"GoBaby/internal/models"
 )
 
-var logUrl = "/log"
-
-func logView(w http.ResponseWriter, r *http.Request) {
-	utils.CheckIfPath(w, r, logUrl)
-
-	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		w.Write([]byte("Hello, Log!"))
-	}
-}
-
 func LogRender() {
-	mux.HandleFunc(logUrl, logView)
+	mux.HandleFunc(models.RoutesInstance.LOG, logDomain.LogView)
 }

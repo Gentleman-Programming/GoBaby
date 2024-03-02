@@ -1,20 +1,10 @@
 package routes
 
 import (
-	"GoBaby/internal/utils"
-	"net/http"
+	optionsDomain "GoBaby/cmd/web/domain/options"
+	"GoBaby/internal/models"
 )
 
-var optionsUrl = "/options"
-
-func optionsView(w http.ResponseWriter, r *http.Request) {
-	utils.CheckIfPath(w, r, optionsUrl)
-
-	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		w.Write([]byte("Hello, Options!"))
-	}
-}
-
 func OptionsRender() {
-	mux.HandleFunc(optionsUrl, optionsView)
+	mux.HandleFunc(models.RoutesInstance.OPTIONS, optionsDomain.OptionsView)
 }
