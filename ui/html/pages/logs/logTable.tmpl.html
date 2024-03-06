@@ -1,0 +1,15 @@
+{{define "logTable"}}
+<thead>
+  <tr>
+    <th>Date</th>
+    <th>Duration</th>
+  </tr>
+</thead>
+<tbody>
+  {{range .}}
+  <tr>
+    <td>{{.Date.Format "2006-01-02"}}</td>
+    <td>{{.FormatDuration .Duration }}</td>
+  </tr>
+</tbody>
+{{end}} {{end}}

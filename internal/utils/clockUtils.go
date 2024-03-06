@@ -2,6 +2,8 @@ package utils
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -17,6 +19,30 @@ var currentDuration = 0
 
 func SetDuration(duration int) {
 	currentDuration = duration
+}
+
+func FormatCountdownToTimestamp(countdown string) int {
+	parts := strings.Split(countdown, ":")
+	if len(parts) != 3 {
+		return 0
+	}
+
+	hours, err := strconv.Atoi(parts[0])
+	if err != nil {
+		return 0
+	}
+	minutes, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return 0
+	}
+	seconds, err := strconv.Atoi(parts[2])
+	if err != nil {
+		return 0
+	}
+
+	totalSeconds := hours*3600 + minutes*60 + seconds
+
+	return totalSeconds
 }
 
 func FormatDuration(seconds int) string {
@@ -39,6 +65,7 @@ func StartCountdown(clock *Clock, duration int) {
 	defer clock.mu.Unlock()
 
 	if clock.running {
+		fmt.Println("Clock already running")
 		return
 	}
 
@@ -52,7 +79,6 @@ func StartCountdown(clock *Clock, duration int) {
 	for range ticker.C {
 		clock.CountDown = FormatDuration(currentDuration)
 
-		fmt.Println(clock.CountDown)
 		currentDuration--
 
 		if currentDuration < 0 {

@@ -1,18 +1,14 @@
-{{define "logs"}}
+{{define "main"}}
 <h1>Logs</h1>
 
-<table id="logsTable">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Duration</th>
-    </tr>
-  </thead>
-  <tbody
-    hx-get="/get-logs"
-    hx-target="#logsTable tbody"
-    hx-swap="outerHTML"
-    hx-trigger="load"
-  ></tbody>
-</table>
+<table
+  id="logsTable"
+  id="logsTbody"
+  hx-get="/log-table"
+  hx-trigger="load"
+></table>
+
+<a href="/" class="link">
+  <button class="action-button">Go Back</button>
+</a>
 {{end}}

@@ -6,5 +6,6 @@ import (
 )
 
 func LogRender() {
-	mux.HandleFunc(models.RoutesInstance.LOG, logDomain.LogView)
+	mux.HandleFunc(models.RoutesInstance.LOG_TABLE, logDomain.LogTable)
+	mux.HandleFunc(models.RoutesInstance.LOGS, logDomain.LogView)
 }

@@ -1,6 +1,7 @@
 package mainDomain
 
 import (
+	logDomain "GoBaby/cmd/web/domain/log"
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
 	"net/http"
@@ -8,10 +9,10 @@ import (
 
 var duration = 14400
 
-var clock = utils.NewClock()
+var ClockInstance = utils.NewClock()
 
 func GetClock() *utils.Clock {
-	return clock
+	return ClockInstance
 }
 
 func GetDuration() int {
@@ -22,11 +23,7 @@ func ClockFragment(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.CLOCK)
 
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		files := []string{
-			"ui/html/pages/main/clock.tmpl.html",
-		}
-
-		utils.ParseTemplateFiles(w, "clock", clock, files...)
+		utils.ParseTemplateFiles(w, "clock", ClockInstance, utils.EmptyFuncMap, "ui/html/pages/main/clock.tmpl.html")
 	}
 }
 
@@ -35,14 +32,16 @@ func RestartCycle(w http.ResponseWriter, r *http.Request) {
 
 	if utils.IsValidHTTPMethod(r.Method, utils.POST.String(), w) {
 		select {
-		case <-clock.Stop: // If the channel is already closed, do nothing
+		case <-ClockInstance.Stop: // If the channel is already closed, do nothing
 		default:
-			utils.StopCountdown(clock)
+			utils.StopCountdown(ClockInstance)
 		}
 
-		clock.CountDown = "04:00:00"
+		logDomain.SaveLog(utils.FormatCountdownToTimestamp(ClockInstance.CountDown))
+
+		ClockInstance.CountDown = "04:00:00"
 
 		utils.SetDuration(duration)
-		go utils.StartCountdown(clock, duration)
+		go utils.StartCountdown(ClockInstance, duration)
 	}
 }
