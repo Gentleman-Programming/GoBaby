@@ -1,0 +1,17 @@
+---
+title: User
+description: This is the User entity
+---
+
+```mermaid
+classDiagram
+USER <|-- LOG
+USER : +int id
+USER : +String userName
+
+class LOG{
++String idLog
++String date
++int duration
+}
+```
