@@ -6,12 +6,13 @@ description: This is the User entity
 ```mermaid
 classDiagram
 USER <|-- LOG
-USER : +int id
-USER : +String userName
+USER : +int Id
+USER : +String UserName
+USER: +LOG Logs
 
 class LOG{
-+String idLog
-+String date
-+int duration
++String IdLog
++Date Date
++int Duration
 }
 ```
