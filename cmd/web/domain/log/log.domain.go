@@ -1,6 +1,7 @@
 package logDomain
 
 import (
+	errorDomain "GoBaby/cmd/web/domain/error"
 	repository_domain "GoBaby/cmd/web/domain/repository"
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
@@ -21,7 +22,10 @@ func LogTable(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("LogTable")
 
-	user, _ := repository_domain.GetUserByUUID(0)
+	user, err := repository_domain.GetUserByUUID(0)
+	if err != nil {
+		errorDomain.ErrorTemplate(w, r, err)
+	}
 
 	slog.Info("LogTable", "logs", user.Logs)
 

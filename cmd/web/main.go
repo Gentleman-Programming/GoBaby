@@ -5,6 +5,7 @@ import (
 	"GoBaby/cmd/web/routes"
 	"GoBaby/cmd/web/routes/mainRoute"
 	"context"
+	"fmt"
 	"log"
 	"log/slog"
 	"net/http"
@@ -18,7 +19,7 @@ func main() {
 
 	_, initDbError := repository_domain.InitializeBD()
 	if initDbError != nil {
-		routes.ErrorRender(initDbError)
+		slog.Error(fmt.Sprint(initDbError))
 	}
 
 	mux := routes.GetMuxInstance()

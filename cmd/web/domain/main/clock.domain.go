@@ -1,8 +1,8 @@
 package mainDomain
 
 import (
+	errorDomain "GoBaby/cmd/web/domain/error"
 	logDomain "GoBaby/cmd/web/domain/log"
-	"GoBaby/cmd/web/routes"
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
 	"net/http"
@@ -40,7 +40,7 @@ func RestartCycle(w http.ResponseWriter, r *http.Request) {
 
 		err := logDomain.SaveLog(utils.FormatCountdownToTimestamp(ClockInstance.CountDown))
 		if err != nil {
-			routes.ErrorRender(err)
+			errorDomain.ErrorTemplate(w, r, err)
 		}
 
 		ClockInstance.CountDown = "04:00:00"

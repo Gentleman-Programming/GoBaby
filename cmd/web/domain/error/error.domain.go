@@ -17,8 +17,8 @@ func ErrorTemplate(w http.ResponseWriter, r *http.Request, errMsg *models.AppErr
 		"ui/html/pages/error/error.tmpl.html",
 	}
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		context := struct{ ErrorMessage *models.AppError }{ErrorMessage: errMsg}
+		context := struct{ ErrorMessage string }{ErrorMessage: fmt.Sprint(errMsg)}
 
-		utils.ParseTemplateFiles(w, "error", context, utils.EmptyFuncMap, files...)
+		utils.ParseTemplateFiles(w, "base", context, utils.EmptyFuncMap, files...)
 	}
 }
