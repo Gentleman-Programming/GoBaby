@@ -6,7 +6,6 @@ import (
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
 	"fmt"
-	"log/slog"
 	"net/http"
 	"time"
 
@@ -25,12 +24,10 @@ func LogTable(w http.ResponseWriter, r *http.Request) {
 	user, err := repository_domain.GetUserByUUID(0)
 	if err != nil {
 		errorDomain.ErrorTemplate(w, r, err)
-	}
-
-	slog.Info("LogTable", "logs", user.Logs)
-
-	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
+	} else {
+		if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
+			utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
+		}
 	}
 }
 

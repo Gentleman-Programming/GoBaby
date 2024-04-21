@@ -18,5 +18,5 @@ func ClockRender() {
 
 	// Routes
 	routes.GetMuxInstance().HandleFunc(models.RoutesInstance.CLOCK, clockFragment)
-	routes.GetMuxInstance().HandleFunc(models.RoutesInstance.CLOCK+"/restart-cycle", restartCycle)
+	routes.GetMuxInstance().HandleFunc(models.RoutesInstance.RESTART_CYCLE, restartCycle)
 }

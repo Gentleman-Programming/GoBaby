@@ -4,7 +4,6 @@ import (
 	db_config "GoBaby/cmd/web/domain/repository/config"
 	"GoBaby/internal/models"
 	"context"
-	"log/slog"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -60,20 +59,15 @@ func AddLogByUUID(uuid int, log models.Log) *models.AppError {
 		},
 	}
 
-	slog.Info("Add Log", "log", log)
-
 	// perform the update
-	result, err := db_config.UserCollection.UpdateOne(context.TODO(), filter, update)
+	_, err := db_config.UserCollection.UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		slog.Error(err.Error())
 		return &models.AppError{
 			Message: "failed to add log by uuid",
 			Code:    models.ErrInternalServer,
 			Err:     err,
 		}
 	}
-
-	slog.Info("Result Log", "user", result)
 
 	return nil // return nothing if update is successful
 }

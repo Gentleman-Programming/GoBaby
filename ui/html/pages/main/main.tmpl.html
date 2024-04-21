@@ -4,7 +4,12 @@
 <a href="/logs" class="link">
   <button class="action-button" id="logButton">Log</button>
 </a>
-<button class="action-button" id="restartButton" hx-post="/clock/restart-cycle">
+<button
+  class="action-button"
+  id="restartButton"
+  hx-post="/clock/restart-cycle"
+  hx-swap="none"
+>
   Restart Cycle
 </button>
 {{end}}

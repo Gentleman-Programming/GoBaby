@@ -41,6 +41,7 @@ func RestartCycle(w http.ResponseWriter, r *http.Request) {
 		err := logDomain.SaveLog(utils.FormatCountdownToTimestamp(ClockInstance.CountDown))
 		if err != nil {
 			errorDomain.ErrorTemplate(w, r, err)
+			return
 		}
 
 		ClockInstance.CountDown = "04:00:00"

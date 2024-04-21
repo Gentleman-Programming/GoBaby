@@ -33,10 +33,9 @@ func (m HTTPMethod) String() string {
 
 func IsValidHTTPMethod(method string, acceptedMethod string, w http.ResponseWriter) bool {
 	if method == acceptedMethod {
+		w.Header().Set("Allow", acceptedMethod)
 		return true
 	}
-
-	w.Header().Set("Allow", acceptedMethod)
 
 	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 

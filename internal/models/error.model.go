@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"net/http"
 )
 
 type AppError struct {
@@ -17,14 +18,12 @@ func (e *AppError) String() string {
 // Custom error codes
 
 const (
-	ErrBadRequest         = 400
-	ErrUnauthorized       = 401
-	ErrForbidden          = 403
-	ErrNotFound           = 404
-	ErrConflict           = 409
-	ErrInternalServer     = 500
-	ErrServiceUnavailable = 503
-	ErrGatewayTimeout     = 504
-	ErrUnknown            = 520
-	ErrDatabase           = 521
+	ErrBadRequest         = http.StatusBadRequest
+	ErrUnauthorized       = http.StatusUnauthorized
+	ErrForbidden          = http.StatusForbidden
+	ErrNotFound           = http.StatusNotFound
+	ErrConflict           = http.StatusConflict
+	ErrInternalServer     = http.StatusInternalServerError
+	ErrServiceUnavailable = http.StatusServiceUnavailable
+	ErrGatewayTimeout     = http.StatusGatewayTimeout
 )
