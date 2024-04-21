@@ -19,6 +19,7 @@ The folder structure follows Clean Architecture principles, separating concerns 
   - **utils**: Provides utility functions like API helpers and clock utilities.
 - **web**: Implements the web interface and handles HTTP requests.
   - **domain**: Contains domain-specific logic.
+    - **error**: Handles error handling functionality, including rendering error templates.
     - **log**: Handles logging functionality.
     - **main**: Manages the main application logic, including the countdown timer.
     - **options**: Handles application options and configurations.
@@ -26,7 +27,7 @@ The folder structure follows Clean Architecture principles, separating concerns 
   - **routes**: Defines HTTP routes for different functionalities.
 - **ui**: Contains HTML templates and static assets for the user interface.
   - **html**: Houses HTML pages for different parts of the application.
-    - **pages**: Includes pages for logs, main functionality, and options.
+    - **pages**: Includes pages for logs, main functionality, options, and error handling.
   - **static**: Stores CSS stylesheets and other static assets.
 
 ```mermaid
@@ -41,6 +42,8 @@ A --> web
 
 cmd --> web
     web --> domain
+        domain --> error
+            error --> error.domain.go
         domain --> log
             log --> log.domain.go
         domain --> main
@@ -61,6 +64,7 @@ cmd --> web
         routes --> log.route.go
         routes --> options.route.go
         routes --> starter.route.go
+        routes --> error.route.go
     web --> main.go
 
 cmd --> documents
@@ -72,6 +76,7 @@ cmd --> internal
         models --> log.model.go
         models --> routes.model.go
         models --> user.model.go
+        models --> error.model.go
     internal --> utils
         utils --> api.go
         utils --> clockUtils.go
@@ -88,6 +93,8 @@ cmd --> ui
                 main --> main.tmpl.html
             pages --> options
                 optinos --> options.tmpl.html
+            pages --> error
+                error --> error.tmpl.html
         html --> base.html
     ui --> static
         static --> css
@@ -131,7 +138,10 @@ Data access logic handles interactions with databases, external APIs, or other d
 
 User interface logic manages the presentation layer of the application, including HTML templates, CSS stylesheets, and static assets. Here's how to organize UI-related files:
 
-- **Folder**: Place UI-related files under the `ui` directory.
+- **Folder**: Place UI-related files under
+
+the `ui` directory.
+
 - **HTML Templates**: Store HTML templates under the `html/pages` directory, organized by different application views (e.g., `logs`, `main`, `options`).
 - **Static Assets**: Store CSS stylesheets and other static assets under the `static/css` directory.
 
@@ -144,3 +154,33 @@ Internal logic and utility functions support the overall operation of the applic
 - **Utilities**: Store utility functions, such as API helpers and clock utilities, under the `internal/utils` directory.
 
 By following these guidelines, developers can ensure a consistent and structured approach to organizing files within the GoBaby application, promoting clarity, maintainability, and collaboration across the development team.
+
+## Managing Errors
+
+Proper error handling is crucial for maintaining a robust and reliable application. GoBaby adopts a centralized error management approach to ensure consistent error handling throughout the application. Here's how error management is implemented:
+
+### Error Domain
+
+The `errorDomain` package contains functionality related to error handling, including rendering error templates. Error-related logic is encapsulated within this domain to keep the code organized and maintainable.
+
+### Error Rendering
+
+The `ErrorTemplate` function in the `errorDomain` package is responsible for rendering error templates. When an error occurs, this function is called to display the appropriate error message to the user.
+
+### Error Routes
+
+Error routes are defined in the `routes` package to handle HTTP requests related to error handling. These routes ensure that error messages are displayed correctly to the user when errors occur during application execution.
+
+### Error Models
+
+The `AppError` struct in the `models` package defines the structure of application errors. Each error includes a message, code, and underlying error, providing comprehensive information for debugging and troubleshooting.
+
+### Error Codes
+
+GoBaby defines custom error codes to categorize different types of errors that may occur within the application. These codes help developers identify the nature of the error and take appropriate action to resolve it.
+
+### Error Handling in Application Logic
+
+Throughout the application logic, errors are handled using the `AppError` struct and associated error codes. When an error occurs, it is wrapped in an `AppError` instance and returned to the caller, ensuring consistent error propagation.
+
+By following these error management practices, GoBaby maintains a reliable and user-friendly error handling system, enhancing the overall robustness and usability of the application.

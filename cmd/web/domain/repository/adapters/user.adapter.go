@@ -28,7 +28,7 @@ func GetUserByUUID(uuid int) (models.User, *models.AppError) {
 	if err != nil {
 		error = &models.AppError{
 			Message: "failed to get user by uuid",
-			Code:    500,
+			Code:    models.ErrNotFound,
 			Err:     err,
 		}
 	}
@@ -41,7 +41,7 @@ func SetUserByUUID(user *models.User) *models.AppError {
 	if err != nil {
 		return &models.AppError{
 			Message: "failed to set user by uuid",
-			Code:    500,
+			Code:    models.ErrInternalServer,
 			Err:     err,
 		}
 	}
@@ -68,7 +68,7 @@ func AddLogByUUID(uuid int, log models.Log) *models.AppError {
 		slog.Error(err.Error())
 		return &models.AppError{
 			Message: "failed to add log by uuid",
-			Code:    500,
+			Code:    models.ErrInternalServer,
 			Err:     err,
 		}
 	}
