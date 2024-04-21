@@ -64,7 +64,6 @@ cmd --> web
         routes --> log.route.go
         routes --> options.route.go
         routes --> starter.route.go
-        routes --> error.route.go
     web --> main.go
 
 cmd --> documents
@@ -166,10 +165,6 @@ The `errorDomain` package contains functionality related to error handling, incl
 ### Error Rendering
 
 The `ErrorTemplate` function in the `errorDomain` package is responsible for rendering error templates. When an error occurs, this function is called to display the appropriate error message to the user.
-
-### Error Routes
-
-Error routes are defined in the `routes` package to handle HTTP requests related to error handling. These routes ensure that error messages are displayed correctly to the user when errors occur during application execution.
 
 ### Error Models
 
