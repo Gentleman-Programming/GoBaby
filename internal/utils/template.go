@@ -24,3 +24,14 @@ func ParseTemplateFiles(w http.ResponseWriter, templateName string, context any,
 		fmt.Println("Error executing template files: ", err)
 	}
 }
+
+func TransformToTemplateFuncMap(key string, f interface{}) template.FuncMap {
+	return template.FuncMap{
+		key: f,
+	}
+}
+
+var (
+	EmptyFuncMap = template.FuncMap{}
+	EmptyStruct  = struct{}{}
+)

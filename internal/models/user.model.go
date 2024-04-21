@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	UserName string
-	Logs     []Log
-	Id       int
+	UserName string `bson:"username"`
+	Logs     []Log  `bson:"logs"`
+	Id       int    `bson:"_id, omitempty"`
 }

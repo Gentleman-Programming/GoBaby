@@ -8,6 +8,8 @@ import (
 	"log/slog"
 	"net/http"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type LogViewModel struct {
@@ -19,12 +21,12 @@ func LogTable(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("LogTable")
 
-	logs := repository_domain.GetUserByUUID(0).Logs
+	user, _ := repository_domain.GetUserByUUID(0)
 
-	slog.Info("LogTable", "logs", logs)
+	slog.Info("LogTable", "logs", user.Logs)
 
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		utils.ParseTemplateFiles(w, "logTable", logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
+		utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
 	}
 }
 
@@ -41,7 +43,10 @@ func LogView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func SaveLog(countdown int) {
+func SaveLog(countdown int) *models.AppError {
 	uuid := 0
-	repository_domain.AddLogByUUID(uuid, models.Log{Date: time.Now(), Duration: countdown})
+	currentTime := time.Now()
+	primitiveDateTime := primitive.NewDateTimeFromTime(currentTime)
+	err := repository_domain.AddLogByUUID(uuid, models.Log{Date: primitiveDateTime, Duration: countdown})
+	return err
 }

@@ -8,18 +8,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func InitializeBD() *mongo.Client {
+func InitializeBD() (*mongo.Client, *models.AppError) {
 	return db_config.InitializeDb()
 }
 
-func GetUserByUUID(uuid int) models.User {
+func GetUserByUUID(uuid int) (models.User, *models.AppError) {
 	return repository_adapters.GetUserByUUID(uuid)
 }
 
-func SetUserByUUID(user *models.User) {
-	repository_adapters.SetUserByUUID(user)
+func SetUserByUUID(user *models.User) *models.AppError {
+	return repository_adapters.SetUserByUUID(user)
 }
 
-func AddLogByUUID(uuid int, log models.Log) {
-	repository_adapters.AddLogByUUID(uuid, log)
+func AddLogByUUID(uuid int, log models.Log) *models.AppError {
+	return repository_adapters.AddLogByUUID(uuid, log)
 }

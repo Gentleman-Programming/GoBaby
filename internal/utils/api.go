@@ -2,7 +2,6 @@ package utils
 
 import (
 	"net/http"
-	"text/template"
 )
 
 // HTTPMethod represents an enumeration of HTTP methods
@@ -52,14 +51,3 @@ func CheckIfPath(w http.ResponseWriter, r *http.Request, path string) {
 		return
 	}
 }
-
-func TransformToTemplateFuncMap(key string, f interface{}) template.FuncMap {
-	return template.FuncMap{
-		key: f,
-	}
-}
-
-var (
-	EmptyFuncMap = template.FuncMap{}
-	EmptyStruct  = struct{}{}
-)

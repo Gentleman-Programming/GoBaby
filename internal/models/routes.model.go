@@ -6,6 +6,7 @@ type Routes struct {
 	OPTIONS   string
 	CLOCK     string
 	LOG_TABLE string
+	ERROR     string
 }
 
 var RoutesInstance = Routes{
@@ -14,4 +15,5 @@ var RoutesInstance = Routes{
 	OPTIONS:   "/options",
 	CLOCK:     "/clock",
 	LOG_TABLE: "/log-table",
+	ERROR:     "/error",
 }

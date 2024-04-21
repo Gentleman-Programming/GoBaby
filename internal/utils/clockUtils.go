@@ -6,6 +6,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Clock struct {
@@ -50,6 +52,11 @@ func FormatDuration(seconds int) string {
 	minutes := (seconds % 3600) / 60
 	seconds = seconds % 60
 	return fmt.Sprintf("%02d:%02d:%02d", hours, minutes, seconds)
+}
+
+func FormatPrimitiveDate(dateTime primitive.DateTime) string {
+	date := time.Unix(0, int64(dateTime)*int64(time.Millisecond))
+	return date.Format("2006-01-02")
 }
 
 func NewClock() *Clock {

@@ -15,7 +15,11 @@ func main() {
 	routes.LogRender()
 	mainRoute.MainRender()
 	mainRoute.ClockRender()
-	repository_domain.InitializeBD()
+
+	_, initDbError := repository_domain.InitializeBD()
+	if initDbError != nil {
+		routes.ErrorRender(initDbError)
+	}
 
 	mux := routes.GetMuxInstance()
 	fileServer := routes.GetFileServerInstance()
