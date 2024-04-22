@@ -7,5 +7,5 @@ import (
 )
 
 func MainRender() {
-	routes.GetMuxInstance().HandleFunc(models.RoutesInstance.MAIN, mainDomain.MainView)
+	routes.GetMuxInstance().HandleFunc("GET "+models.RoutesInstance.MAIN, mainDomain.MainView)
 }

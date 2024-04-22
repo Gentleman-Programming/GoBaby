@@ -6,5 +6,5 @@ import (
 )
 
 func OptionsRender() {
-	mux.HandleFunc(models.RoutesInstance.OPTIONS, optionsDomain.OptionsView)
+	mux.HandleFunc("GET "+models.RoutesInstance.OPTIONS, optionsDomain.OptionsView)
 }

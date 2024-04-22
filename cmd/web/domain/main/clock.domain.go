@@ -10,10 +10,10 @@ import (
 
 var duration = 14400
 
-var ClockInstance = utils.NewClock()
+var clockInstance = utils.NewClock()
 
 func GetClock() *utils.Clock {
-	return ClockInstance
+	return clockInstance
 }
 
 func GetDuration() int {
@@ -23,27 +23,25 @@ func GetDuration() int {
 func ClockFragment(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.CLOCK)
 
-	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-		utils.ParseTemplateFiles(w, "clock", ClockInstance, utils.EmptyFuncMap, "ui/html/pages/main/clock.tmpl.html")
-	}
+	utils.ParseTemplateFiles(w, "clock", clockInstance, utils.EmptyFuncMap, "ui/html/pages/main/clock.tmpl.html")
 }
 
 func RestartCycle(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.RESTART_CYCLE)
 
 	select {
-	case <-ClockInstance.Stop: // If the channel is already closed, do nothing
+	case <-clockInstance.Stop: // If the channel is already closed, do nothing
 	default:
-		err := logDomain.SaveLog(utils.FormatCountdownToTimestamp(ClockInstance.CountDown))
+		err := logDomain.SaveLog(utils.FormatCountdownToTimestamp(clockInstance.CountDown))
 		if err != nil {
 			errorDomain.ErrorTemplate(w, r, err)
 			return
 		}
 
-		utils.StopCountdown(ClockInstance)
-		ClockInstance.CountDown = "04:00:00"
+		utils.StopCountdown(clockInstance)
+		clockInstance.CountDown = "04:00:00"
 		utils.SetDuration(duration)
-		go utils.StartCountdown(ClockInstance, duration)
+		go utils.StartCountdown(clockInstance, duration)
 
 		w.Write([]byte("Cycle restarted"))
 	}

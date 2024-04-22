@@ -22,15 +22,14 @@ func LogTable(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		errorDomain.ErrorTemplate(w, r, err)
 	} else {
-		if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
-			utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
-		}
+		utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
 	}
 }
 
 func LogView(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.LOGS)
 
+	// use this utility if you are under a version lower than 1.7
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
 		files := []string{
 			"ui/html/base.html",

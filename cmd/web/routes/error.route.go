@@ -6,5 +6,5 @@ import (
 )
 
 func ErrorRender() {
-	mux.HandleFunc(models.RoutesInstance.CLEAR_ERROR, errorDomain.ClearErrorTemplate)
+	mux.HandleFunc("GET "+models.RoutesInstance.CLEAR_ERROR, errorDomain.ClearErrorTemplate)
 }

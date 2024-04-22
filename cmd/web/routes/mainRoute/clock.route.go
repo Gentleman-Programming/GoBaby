@@ -17,6 +17,6 @@ func ClockRender() {
 	go utils.StartCountdown(clock, duration)
 
 	// Routes
-	routes.GetMuxInstance().HandleFunc(models.RoutesInstance.CLOCK, clockFragment)
+	routes.GetMuxInstance().HandleFunc("GET "+models.RoutesInstance.CLOCK, clockFragment)
 	routes.GetMuxInstance().HandleFunc("POST "+models.RoutesInstance.RESTART_CYCLE, restartCycle)
 }
