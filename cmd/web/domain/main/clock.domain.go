@@ -29,24 +29,22 @@ func ClockFragment(w http.ResponseWriter, r *http.Request) {
 }
 
 func RestartCycle(w http.ResponseWriter, r *http.Request) {
-	utils.CheckIfPath(w, r, models.RoutesInstance.MAIN)
+	utils.CheckIfPath(w, r, models.RoutesInstance.RESTART_CYCLE)
 
-	if utils.IsValidHTTPMethod(r.Method, utils.POST.String(), w) {
-		select {
-		case <-ClockInstance.Stop: // If the channel is already closed, do nothing
-		default:
-			utils.StopCountdown(ClockInstance)
-		}
-
+	select {
+	case <-ClockInstance.Stop: // If the channel is already closed, do nothing
+	default:
 		err := logDomain.SaveLog(utils.FormatCountdownToTimestamp(ClockInstance.CountDown))
 		if err != nil {
 			errorDomain.ErrorTemplate(w, r, err)
 			return
 		}
 
+		utils.StopCountdown(ClockInstance)
 		ClockInstance.CountDown = "04:00:00"
-
 		utils.SetDuration(duration)
 		go utils.StartCountdown(ClockInstance, duration)
+
+		w.Write([]byte("Cycle restarted"))
 	}
 }

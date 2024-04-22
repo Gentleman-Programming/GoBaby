@@ -19,8 +19,6 @@ type LogViewModel struct {
 func LogTable(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.LOG_TABLE)
 
-	fmt.Println("LogTable")
-
 	user, err := repository_domain.GetUserByUUID(0)
 	if err != nil {
 		errorDomain.ErrorTemplate(w, r, err)

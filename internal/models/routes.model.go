@@ -8,6 +8,7 @@ type Routes struct {
 	RESTART_CYCLE string
 	LOG_TABLE     string
 	ERROR         string
+	CLEAR_ERROR   string
 }
 
 var RoutesInstance = Routes{
@@ -18,4 +19,5 @@ var RoutesInstance = Routes{
 	RESTART_CYCLE: "/clock/restart-cycle",
 	LOG_TABLE:     "/log-table",
 	ERROR:         "/error",
+	CLEAR_ERROR:   "/clear-error",
 }

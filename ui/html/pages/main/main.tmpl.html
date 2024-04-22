@@ -1,4 +1,5 @@
 {{define "main"}}
+<script src="../../../static/js/errorHandler.js"></script>
 <h1 class="title pulsing"><span>Go Baby!</span></h1>
 <div id="clock" hx-get="/clock" hx-trigger="load, every 1s"></div>
 <a href="/logs" class="link">
@@ -8,7 +9,6 @@
   class="action-button"
   id="restartButton"
   hx-post="/clock/restart-cycle"
-  hx-swap="none"
 >
   Restart Cycle
 </button>

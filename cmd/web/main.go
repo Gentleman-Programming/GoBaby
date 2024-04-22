@@ -14,6 +14,7 @@ import (
 func main() {
 	routes.OptionsRender()
 	routes.LogRender()
+	routes.ErrorRender()
 	mainRoute.MainRender()
 	mainRoute.ClockRender()
 

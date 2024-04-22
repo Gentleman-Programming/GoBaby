@@ -68,6 +68,7 @@ mainRoute --> main.route.go
 routes --> log.route.go
 routes --> options.route.go
 routes --> starter.route.go
+routes --> error.route.go
 web --> main.go
 
 cmd --> internal
@@ -94,6 +95,7 @@ pages --> options
 options --> options.tmpl.html
 pages --> error
 error --> error.tmpl.html
+error --> clear-error.tmpl.html
 html --> base.html
 ui --> static
 static --> css

@@ -1,8 +1,9 @@
 {{define "error"}}
-<h3>Oh no ! an error has ocurred</h3>
+<div id="error" class="visible"  hx-get="/clear-error" hx-trigger="load delay:4s">
+  <h3>Oh no ! an error has ocurred</h3>
 
-<div>
-  <p>{{.ErrorMessage}}</p>
+  <div>
+    <p>{{.ErrorMessage}}</p>
+  </div>
 </div>
-
 {{end}}

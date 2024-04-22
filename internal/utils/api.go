@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -46,6 +47,7 @@ var acceptedMethods = []string{http.MethodGet, http.MethodPost, http.MethodPut, 
 
 func CheckIfPath(w http.ResponseWriter, r *http.Request, path string) {
 	if r.URL.Path != path {
+		fmt.Println("error: "+r.URL.Path, path)
 		http.NotFound(w, r)
 		return
 	}
