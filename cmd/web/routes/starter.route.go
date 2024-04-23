@@ -9,8 +9,7 @@ import (
 
 var (
 	mux        = http.NewServeMux()
-	static, _  = fs.Sub(ui.Content, "static")
-	fileServer = http.FileServerFS(static)
+	fileServer http.Handler
 )
 
 func GetMuxInstance() *http.ServeMux {
@@ -18,5 +17,10 @@ func GetMuxInstance() *http.ServeMux {
 }
 
 func GetFileServerInstance() http.Handler {
+	if fileServer == nil {
+		staticFS, _ := fs.Sub(ui.Content, "static")
+		fileServer = http.FileServerFS(staticFS)
+	}
+
 	return fileServer
 }
