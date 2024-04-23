@@ -23,7 +23,7 @@ func GetDuration() int {
 func ClockFragment(w http.ResponseWriter, r *http.Request) {
 	utils.CheckIfPath(w, r, models.RoutesInstance.CLOCK)
 
-	utils.ParseTemplateFiles(w, "clock", clockInstance, utils.EmptyFuncMap, "ui/html/pages/main/clock.tmpl.html")
+	utils.ParseTemplateFiles(w, "clock", clockInstance, utils.EmptyFuncMap, "html/pages/main/clock.tmpl.html")
 }
 
 func RestartCycle(w http.ResponseWriter, r *http.Request) {

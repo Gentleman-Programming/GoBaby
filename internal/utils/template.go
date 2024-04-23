@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+
+	"GoBaby/ui"
 )
 
 func ParseTemplateFiles(w http.ResponseWriter, templateName string, context any, funcToTemplate template.FuncMap, files ...string) {
-	ts, er := template.ParseFiles(files...)
+	ts, er := template.ParseFS(ui.Content, files...)
 	if er != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		fmt.Println("Error parsing template files: ", er)

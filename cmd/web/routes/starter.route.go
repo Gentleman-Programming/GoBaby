@@ -1,10 +1,16 @@
 package routes
 
-import "net/http"
+import (
+	"io/fs"
+	"net/http"
+
+	"GoBaby/ui"
+)
 
 var (
 	mux        = http.NewServeMux()
-	fileServer = http.FileServer(http.Dir("ui/static"))
+	static, _  = fs.Sub(ui.Content, "static")
+	fileServer = http.FileServerFS(static)
 )
 
 func GetMuxInstance() *http.ServeMux {
