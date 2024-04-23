@@ -3,6 +3,7 @@ package mainDomain
 import (
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
+	"GoBaby/ui"
 	"net/http"
 )
 
@@ -14,5 +15,5 @@ func MainView(w http.ResponseWriter, r *http.Request) {
 		"html/pages/main/main.tmpl.html",
 	}
 
-	utils.ParseTemplateFiles(w, "base", utils.EmptyStruct, utils.EmptyFuncMap, files...)
+	utils.ParseTemplateFiles(w, "base", utils.EmptyStruct, utils.EmptyFuncMap, ui.Content, files...)
 }
