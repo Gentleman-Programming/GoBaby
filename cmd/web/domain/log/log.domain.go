@@ -5,6 +5,7 @@ import (
 	repository_domain "GoBaby/cmd/web/domain/repository"
 	"GoBaby/internal/models"
 	"GoBaby/internal/utils"
+	"GoBaby/ui"
 	"net/http"
 	"time"
 
@@ -22,7 +23,7 @@ func LogTable(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		errorDomain.ErrorTemplate(w, r, err)
 	} else {
-		utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, "ui/html/pages/logs/logTable.tmpl.html")
+		utils.ParseTemplateFiles(w, "logTable", user.Logs, utils.EmptyFuncMap, ui.Content, "html/pages/logs/logTable.tmpl.html")
 	}
 }
 
@@ -32,11 +33,11 @@ func LogView(w http.ResponseWriter, r *http.Request) {
 	// use this utility if you are under a version lower than 1.7
 	if utils.IsValidHTTPMethod(r.Method, utils.GET.String(), w) {
 		files := []string{
-			"ui/html/base.html",
-			"ui/html/pages/logs/logs.tmpl.html",
+			"html/base.html",
+			"html/pages/logs/logs.tmpl.html",
 		}
 
-		utils.ParseTemplateFiles(w, "base", utils.EmptyStruct, utils.EmptyFuncMap, files...)
+		utils.ParseTemplateFiles(w, "base", utils.EmptyStruct, utils.EmptyFuncMap, ui.Content, files...)
 	}
 }
 
