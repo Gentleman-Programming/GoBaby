@@ -35,7 +35,7 @@ func GetUserByUUID(uuid int) (models.User, *models.AppError) {
 	return result, error
 }
 
-func SetUserByUUID(user *models.User) *models.AppError {
+func SetUser(user *models.User) *models.AppError {
 	_, err := db_config.UserCollection.InsertOne(context.TODO(), user)
 	if err != nil {
 		return &models.AppError{
