@@ -19,17 +19,19 @@ func InitRoutes() {
 }
 
 func main() {
+	// init routes and database
 	InitRoutes()
-
 	repository_domain.InitializeBD()
 
-	mux := routes.GetMuxInstance()
-
 	// serve static files
+	mux := routes.GetMuxInstance()
 	fileServer := routes.GetFileServerInstance()
 	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
 
+	// start server
 	slog.Log(context.TODO(), slog.LevelInfo, "Starring server on :4000")
 	err := http.ListenAndServe(":4000", routes.GetMuxInstance())
-	log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

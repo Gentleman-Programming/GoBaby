@@ -11,6 +11,9 @@ func InitializeBD() {
 	_, err := db_config.InitializeDb()
 	if err != nil {
 		slog.Error(err.Message)
+
+		// we want it to panic if the database is not initialized as it is crucial for the application
+		panic(err.Err)
 	}
 
 	db_config.InitializeDb()
