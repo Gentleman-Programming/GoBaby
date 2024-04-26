@@ -13,14 +13,21 @@ import (
 var database = "GoBaby"
 
 var collections = map[string]string{
-	"users": "users",
-	"logs":  "logs",
+	"users":   "users",
+	"monitor": "monitor",
 }
 
-var UserCollection *mongo.Collection
+var (
+	UserCollection    *mongo.Collection
+	MonitorCollection *mongo.Collection
+)
 
 func InitializeUsersCollection(client *mongo.Client) *mongo.Collection {
 	return client.Database(database).Collection(collections["users"])
+}
+
+func InitializeMonitorCollection(client *mongo.Client) *mongo.Collection {
+	return client.Database(database).Collection(collections["monitor"])
 }
 
 func InitializeLogsCollection(client *mongo.Client) *mongo.Collection {
@@ -38,6 +45,7 @@ func InitializeDb() (*mongo.Client, *models.AppError) {
 	}
 
 	UserCollection = InitializeUsersCollection(client)
+	MonitorCollection = InitializeMonitorCollection(client)
 
 	// check if the user with _id equal to 0 exists
 	result := UserCollection.FindOne(context.TODO(), bson.M{"_id": 0})

@@ -15,8 +15,6 @@ func InitializeBD() {
 		// we want it to panic if the database is not initialized as it is crucial for the application
 		panic(err.Err)
 	}
-
-	db_config.InitializeDb()
 }
 
 func GetUserByUUID(uuid int) (models.User, *models.AppError) {
@@ -29,4 +27,11 @@ func SetUser(user *models.User) *models.AppError {
 
 func AddLogByUUID(uuid int, log models.Log) *models.AppError {
 	return repository_adapters.AddLogByUUID(uuid, log)
+}
+
+func AddMonitorLog(monitorLog models.MonitorLog) {
+	err := repository_adapters.AddMonitorLog(monitorLog)
+	if err != nil {
+		slog.Error(err.Message)
+	}
 }
