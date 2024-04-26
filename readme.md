@@ -58,6 +58,7 @@ options_domain --> options.domain.go
 domain --> repository
 repository --> adapters
 adapters --> user.adapter.go
+adapters --> monitor.adapter.go
 repository --> config
 config --> db.config.go
 repository --> repository.domain.go
@@ -77,6 +78,8 @@ models --> log.model.go
 models --> routes.model.go
 models --> user.model.go
 models --> error.model.go
+models --> monitor.model.go
+
 internal --> utils
 utils --> api.go
 utils --> clockUtils.go
